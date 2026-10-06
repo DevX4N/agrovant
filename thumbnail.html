@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1600">
+<meta name="robots" content="noindex, nofollow">
+<title>AGROVANT — Capa do case</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+  html, body { margin: 0; background: var(--bg); overflow: hidden; }
+  .cover { position: relative; width: 1600px; height: 1000px; overflow: hidden; isolation: isolate; }
+  .cover__bg { position: absolute; inset: 0; z-index: -2; }
+  .cover__bg img { width: 100%; height: 100%; object-fit: cover; filter: url(#f-ndvi); transform: scale(1.08); }
+  .cover__shade { position: absolute; inset: 0; z-index: -1; background:
+    linear-gradient(90deg, rgba(8,11,9,.96) 0%, rgba(8,11,9,.86) 38%, rgba(8,11,9,.5) 70%, rgba(8,11,9,.62) 100%),
+    linear-gradient(180deg, rgba(8,11,9,.5), rgba(8,11,9,0) 30%, rgba(8,11,9,0) 70%, rgba(8,11,9,.85)); }
+  .cover .graticule { background-size: 25% 100%, 100% 33.333%; -webkit-mask-image: none; mask-image: none; }
+  .cover .gt--x { top: 26px; }
+  .c-left { position: absolute; left: 88px; top: 92px; bottom: 92px; width: 740px; display: flex; flex-direction: column; }
+  .c-logo { display: flex; align-items: center; gap: 16px; }
+  .c-logo .logo__mark { width: 44px; height: 44px; }
+  .c-logo span { font-size: 30px; font-weight: 600; letter-spacing: .16em; }
+  .c-h { margin-top: auto; font-size: 100px; font-weight: 600; letter-spacing: -.045em; line-height: .94; }
+  .c-h em { font-style: normal; color: var(--lime); }
+  .c-tags { display: flex; gap: 10px; margin-top: 44px; }
+  .c-tags span { font-family: var(--fm); font-size: 15px; letter-spacing: .14em; text-transform: uppercase; color: var(--text-2); border: 1px solid var(--line-2); border-radius: 6px; padding: 9px 14px; background: rgba(8,11,9,.5); }
+  .c-tags span:first-child { color: var(--lime); border-color: rgba(182,242,58,.5); }
+  .c-dash { position: absolute; right: -60px; top: 170px; width: 820px; }
+  .c-dash .hd-map { aspect-ratio: 600 / 330; }
+  .c-dash .hd-top { font-size: 17px; padding: 16px 20px; }
+  .c-dash .hd-safra { font-size: 13px; }
+  .c-dash .live { font-size: 12px; }
+  .c-dash .k-l { font-size: 14px; }
+  .c-dash .k-v { font-size: 16px; }
+  .c-dash .k-v b { font-size: 30px; }
+  .c-dash .hd-kpi { padding: 16px 18px 14px; }
+  .c-dash .spark { height: 28px; }
+  .c-wx { position: absolute; right: 60px; top: 70px; width: 250px; padding: 18px 20px; }
+  .c-wx .hd-wx__t { font-size: 38px; }
+  .c-wx .ico { width: 38px; height: 38px; }
+  .c-wx .hd-wx__bars { height: 52px; }
+  .c-alert { position: absolute; left: 780px; top: 548px; display: flex; gap: 14px; align-items: center; padding: 16px 20px; }
+  .c-alert b { display: block; font-size: 18px; font-weight: 600; }
+  .c-alert span { font-size: 15px; color: var(--muted); }
+  .c-coord { position: absolute; right: 88px; bottom: 40px; font-family: var(--fm); font-size: 14px; letter-spacing: .12em; color: rgba(244,246,241,.6); display: flex; gap: 24px; }
+  .c-coord span:first-child { color: var(--lime); }
+  .c-sweep { position: absolute; left: 0; right: 0; top: 820px; height: 1px; background: var(--lime); opacity: .8; }
+  .c-sweep::before { content: ""; position: absolute; left: 0; right: 0; bottom: 1px; height: 120px; background: linear-gradient(to bottom, rgba(182,242,58,0), rgba(182,242,58,.08)); }
+  .c-sweep span { position: absolute; left: 88px; top: 10px; font-family: var(--fm); font-size: 13px; letter-spacing: .14em; color: var(--lime); }
+  .c-pin { position: absolute; color: var(--lime); }
+  .c-pin i { position: absolute; left: -8px; top: -8px; width: 16px; height: 16px; border-radius: 50%; border: 2px solid currentColor; }
+  .c-pin i::before { content: ""; position: absolute; inset: 3px; border-radius: 50%; background: currentColor; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="f-ndvi" color-interpolation-filters="sRGB">
+      <feColorMatrix type="matrix" values="-1.2 2.6 -1 0 0.12  -1.2 2.6 -1 0 0.12  -1.2 2.6 -1 0 0.12  0 0 0 1 0"/>
+      <feComponentTransfer>
+        <feFuncR type="table" tableValues="0.10 0.36 0.62 0.50 0.71"/>
+        <feFuncG type="table" tableValues="0.07 0.22 0.48 0.70 0.95"/>
+        <feFuncB type="table" tableValues="0.05 0.08 0.15 0.18 0.23"/>
+      </feComponentTransfer>
+    </filter>
+  </defs>
+  <symbol id="logo-mark" viewBox="0 0 28 28"><rect x="12" y="1.5" width="4" height="4" class="lm-dot"/><path d="M11 9h6M8 14h12M5 19h6.2M16.8 19H23M2 24h7.5M18.5 24H26"/></symbol>
+  <symbol id="i-partly" viewBox="0 0 24 24"><path d="M9 4.5v1.5M3.8 9.5h1.5M5.3 5.8l1 1M12.7 5.8l-1 1"/><path d="M6.3 12.2A3.5 3.5 0 1 1 12.2 8"/><path d="M8.5 19.5h9.3a3.3 3.3 0 0 0 .5-6.55 5 5 0 0 0-9.6-.9 3.75 3.75 0 0 0-.2 7.45z"/></symbol>
+</svg>
+
+<div class="cover">
+  <div class="cover__bg"><img src="assets/img/hero-rows.webp" alt=""></div>
+  <div class="cover__shade"></div>
+  <div class="graticule" aria-hidden="true">
+    <span class="gt gt--x" style="--p:25%">55°43′W</span><span class="gt gt--x" style="--p:50%">55°42′W</span><span class="gt gt--x" style="--p:75%">55°41′W</span>
+    <span class="gt gt--y" style="--p:33.33%">12°32′S</span><span class="gt gt--y" style="--p:66.66%">12°33′S</span>
+  </div>
+
+  <div class="c-left">
+    <div class="c-logo"><svg class="logo__mark"><use href="#logo-mark"/></svg><span>AGROVANT</span></div>
+    <h1 class="c-h">Inteligência que<br><em>nasce no campo.</em></h1>
+    <div class="c-tags"><span>AgTech</span><span>Plataforma</span><span>Dados</span></div>
+  </div>
+
+  <div class="c-dash">
+    <div class="plate hd-main">
+      <div class="hd-top">
+        <span class="hd-prop"><svg class="logo__mark sm"><use href="#logo-mark"/></svg>Santa Helena</span>
+        <span class="hd-safra mono">Safra 2026/27</span>
+        <span class="live mono"><i></i>Ao vivo</span>
+      </div>
+      <div class="hd-map">
+        <svg class="farm" data-farm data-prop="santa-helena" data-layer="ndvi" data-labels data-photo="assets/img/talhoes-m.webp" viewBox="0 0 600 330" preserveAspectRatio="xMidYMid slice"></svg>
+        <span class="c-pin" style="left:30%;top:52%"><i></i></span>
+      </div>
+      <div class="hd-kpis">
+        <div class="hd-kpi"><span class="k-l">Área monitorada</span><span class="k-v"><b>1.284</b> ha</span><svg class="spark" viewBox="0 0 100 24" preserveAspectRatio="none"><path d="M0 20 L14 18 L28 18 L42 14 L56 13 L70 10 L84 8 L100 6"/></svg></div>
+        <div class="hd-kpi"><span class="k-l">Previsão</span><span class="k-v"><b>74,8</b> sc/ha</span><svg class="spark" viewBox="0 0 100 24" preserveAspectRatio="none"><path d="M0 18 L14 16 L28 17 L42 12 L56 13 L70 9 L84 10 L100 5"/></svg></div>
+        <div class="hd-kpi"><span class="k-l">Precipitação</span><span class="k-v"><b>18,2</b> mm</span><svg class="spark" viewBox="0 0 100 24" preserveAspectRatio="none"><path d="M0 22 L14 22 L28 12 L42 20 L56 22 L70 6 L84 18 L100 14"/></svg></div>
+        <div class="hd-kpi"><span class="k-l">Temperatura</span><span class="k-v"><b>26,4</b>°C</span><svg class="spark" viewBox="0 0 100 24" preserveAspectRatio="none"><path d="M0 14 L14 12 L28 10 L42 8 L56 9 L70 11 L84 10 L100 12"/></svg></div>
+      </div>
+    </div>
+  </div>
+  <div class="plate c-wx">
+    <div class="hd-wx__row"><svg class="ico"><use href="#i-partly"/></svg><span class="hd-wx__t">26°</span><span class="hd-wx__c">Parcialmente<br>nublado</span></div>
+    <div class="hd-wx__bars"><i style="--h:20%"></i><i style="--h:35%"></i><i style="--h:10%"></i><i style="--h:62%"></i><i style="--h:80%"></i><i style="--h:44%"></i><i style="--h:18%"></i></div>
+  </div>
+  <div class="plate c-alert"><span class="dot dot--warn"></span><div><b>Umidade baixa</b><span>Talhão 04 · 34% · há 6 min</span></div></div>
+  <div class="c-coord"><span>CENA S2B · MSI L2A</span><span>12°32′41″S · 55°42′18″W</span><span>NUVENS 2%</span></div>
+</div>
+<script src="assets/js/farm.js"></script>
+<script>document.querySelectorAll('svg[data-farm]').forEach(function (s) { AGV.render(s); });</script>
+</body>
+</html>

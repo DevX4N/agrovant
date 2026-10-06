@@ -1,0 +1,1098 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AGROVANT | Tecnologia e Inteligência para o Agronegócio</title>
+<meta name="description" content="Tecnologia para transformar dados agrícolas em decisões mais inteligentes. Monitore lavouras, clima, produtividade e operações com a AGROVANT.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#080B09">
+<meta name="color-scheme" content="dark">
+<link rel="canonical" href="https://agrovant.vercel.app/">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="AGROVANT">
+<meta property="og:title" content="AGROVANT | Tecnologia e Inteligência para o Agronegócio">
+<meta property="og:description" content="Tecnologia para transformar dados agrícolas em decisões mais inteligentes. Monitore lavouras, clima, produtividade e operações com a AGROVANT.">
+<meta property="og:url" content="https://agrovant.vercel.app/">
+<meta property="og:image" content="https://agrovant.vercel.app/assets/img/og-agrovant.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="AGROVANT — Inteligência que nasce no campo. Dashboard da plataforma sobre imagem aérea de lavoura.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AGROVANT | Tecnologia e Inteligência para o Agronegócio">
+<meta name="twitter:description" content="Monitore lavouras, clima, produtividade e operações com a AGROVANT.">
+<meta name="twitter:image" content="https://agrovant.vercel.app/assets/img/og-agrovant.jpg">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://agrovant.vercel.app/#org",
+      "name": "AGROVANT Tecnologia Agrícola",
+      "url": "https://agrovant.vercel.app/",
+      "logo": "https://agrovant.vercel.app/assets/img/favicon.svg",
+      "slogan": "Inteligência que nasce no campo.",
+      "email": "contato@agrovant.com.br",
+      "telephone": "+55-0800-000-0000",
+      "description": "Projeto conceitual: plataforma digital de monitoramento e inteligência para o agronegócio."
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "AGROVANT",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web, iOS, Android",
+      "publisher": { "@id": "https://agrovant.vercel.app/#org" },
+      "description": "Monitoramento de lavouras, clima, máquinas, produtividade e alertas em uma única plataforma."
+    }
+  ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="assets/img/hero-rows.webp" media="(min-width: 761px)">
+<link rel="preload" as="image" href="assets/img/hero-rows-m.webp" media="(max-width: 760px)">
+<link rel="stylesheet" href="assets/css/style.css">
+<script>
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.documentElement.classList.add('pre-motion');
+    setTimeout(function () { document.documentElement.classList.remove('pre-motion'); }, 3500);
+  }
+</script>
+</head>
+<body>
+<!--
+THESIS: The whole site is one satellite pass over Fazenda Santa Helena; every section is another processed band of the same land. Refuses the category-default "dark SaaS hero + feature cards + logo wall".
+OWN-WORLD: #080B09 ground, #151B16 plates, lime #B6F23A only for live/processed signal, earth #C9B48A for soil; aerial photo under lat/long graticule; scene-metadata rails (label · coordinates · timestamp) in Geist Mono; flat overlapping plates, offset shadows, no glow.
+STORY: visitor sees field become data, understands the platform works (map, climate, alerts, AI), believes it is real software, requests a demo.
+FIRST VIEWPORT: full-bleed dark aerial scene with graticule; headline left at ~6rem; dashboard plates stacked right over the same land; band switcher (Satélite/NDVI/Umidade) bottom-left reprocesses the photo with a scan sweep; lime CTA under headline.
+FORM: Cena Orbital (satellite scene viewer), #4 of 7 grounded; seed 37dba28b.
+FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
+-->
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <!-- false-colour band processing applied to aerial photos -->
+    <filter id="f-ndvi" color-interpolation-filters="sRGB">
+      <feColorMatrix type="matrix" values="-1.2 2.6 -1 0 0.12  -1.2 2.6 -1 0 0.12  -1.2 2.6 -1 0 0.12  0 0 0 1 0"/>
+      <feComponentTransfer>
+        <feFuncR type="table" tableValues="0.10 0.36 0.62 0.50 0.71"/>
+        <feFuncG type="table" tableValues="0.07 0.22 0.48 0.70 0.95"/>
+        <feFuncB type="table" tableValues="0.05 0.08 0.15 0.18 0.23"/>
+      </feComponentTransfer>
+    </filter>
+    <filter id="f-umid" color-interpolation-filters="sRGB">
+      <feColorMatrix type="matrix" values="0.1 0.6 0.5 0 -0.05  0.1 0.6 0.5 0 -0.05  0.1 0.6 0.5 0 -0.05  0 0 0 1 0"/>
+      <feComponentTransfer>
+        <feFuncR type="table" tableValues="0.06 0.55 0.37 0.18 0.30"/>
+        <feFuncG type="table" tableValues="0.07 0.43 0.55 0.44 0.66"/>
+        <feFuncB type="table" tableValues="0.08 0.24 0.49 0.53 0.74"/>
+      </feComponentTransfer>
+    </filter>
+  </defs>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="1"/><rect x="13.5" y="3.5" width="7" height="7" rx="1"/><rect x="3.5" y="13.5" width="7" height="7" rx="1"/><rect x="13.5" y="13.5" width="7" height="7" rx="1"/></symbol>
+  <symbol id="i-map" viewBox="0 0 24 24"><path d="M3 6.5 9 4l6 2.5L21 4v13.5L15 20l-6-2.5L3 20z"/><path d="M9 4v13.5M15 6.5V20"/></symbol>
+  <symbol id="i-rows" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="2"/><path d="M3.5 14 14 3.5M3.5 20.5l17-17M10 20.5 20.5 10"/></symbol>
+  <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M7 18.5h10.2a4 4 0 0 0 .6-7.95A6 6 0 0 0 6.3 9.3 4.6 4.6 0 0 0 7 18.5z"/></symbol>
+  <symbol id="i-tractor" viewBox="0 0 24 24"><circle cx="7" cy="16.5" r="3.5"/><circle cx="18" cy="17.5" r="2.5"/><path d="M4.5 13.5V6.5h6l2 6.5h6.5v4.5M8.5 6.5V3.5M13 13H10.5"/></symbol>
+  <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></symbol>
+  <symbol id="i-gauge" viewBox="0 0 24 24"><path d="M3.5 17.5a8.5 8.5 0 1 1 17 0"/><path d="m12 17.5 4.2-5.2M7 13.5l1 .6M12 9v1.2M17 13.5l-1 .6"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M6 3.5h8l4.5 4.5v12.5H6z"/><path d="M14 3.5V8h4.5M9 12.5h6M9 16h6"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4.5 12h15M13.5 6l6 6-6 6"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16.5V11a6 6 0 0 1 12 0v5.5l1.5 2h-15z"/><path d="M10 20.5a2 2 0 0 0 4 0"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M4 12 20 4l-5 16-3-7z"/><path d="m12 13 8-9"/></symbol>
+  <symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 3.5s6 6.4 6 10.8a6 6 0 0 1-12 0c0-4.4 6-10.8 6-10.8z"/></symbol>
+  <symbol id="i-wind" viewBox="0 0 24 24"><path d="M3 8.5h10.5a3 3 0 1 0-3-3M3 12.5h15a3 3 0 1 1-3 3M3 16.5h7"/></symbol>
+  <symbol id="i-rain" viewBox="0 0 24 24"><path d="M7 15h10.2a3.8 3.8 0 0 0 .6-7.55A5.6 5.6 0 0 0 6.9 6.4 4.3 4.3 0 0 0 7 15z"/><path d="m8 18-1 2.5M12.5 18l-1 2.5M17 18l-1 2.5"/></symbol>
+  <symbol id="i-thermo" viewBox="0 0 24 24"><path d="M10 14.5V5a2 2 0 0 1 4 0v9.5a4 4 0 1 1-4 0z"/><path d="M12 9v7"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></symbol>
+  <symbol id="i-partly" viewBox="0 0 24 24"><path d="M9 4.5v1.5M3.8 9.5h1.5M5.3 5.8l1 1M12.7 5.8l-1 1"/><path d="M6.3 12.2A3.5 3.5 0 1 1 12.2 8"/><path d="M8.5 19.5h9.3a3.3 3.3 0 0 0 .5-6.55 5 5 0 0 0-9.6-.9 3.75 3.75 0 0 0-.2 7.45z"/></symbol>
+  <symbol id="i-storm" viewBox="0 0 24 24"><path d="M7 15h10.2a3.8 3.8 0 0 0 .6-7.55A5.6 5.6 0 0 0 6.9 6.4 4.3 4.3 0 0 0 7 15z"/><path d="m12.5 13.5-2 4h3l-2 4"/></symbol>
+  <symbol id="i-satellite" viewBox="0 0 24 24"><path d="m10 8.5 5.5 5.5-2.2 2.2-5.5-5.5z"/><path d="M8.6 7.1 5 3.5 3 5.5l3.6 3.6M15.4 16.9l3.6 3.6 2-2-3.6-3.6"/><path d="M4 15a5 5 0 0 0 5 5M4 18.5A1.5 1.5 0 0 0 5.5 20"/></symbol>
+  <symbol id="i-sensor" viewBox="0 0 24 24"><path d="M12 2.5V10M8.5 10h7v4.5h-7zM10.5 14.5v4M13.5 14.5v4M3 20.5h18"/><path d="M8 5.5a5 5 0 0 1 8 0"/></symbol>
+  <symbol id="i-gps" viewBox="0 0 24 24"><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="1.6"/><path d="M12 2.5v3.5M12 18v3.5M2.5 12H6M18 12h3.5"/></symbol>
+  <symbol id="i-ml" viewBox="0 0 24 24"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="5" r="2"/><circle cx="12" cy="19" r="2"/><circle cx="19" cy="12" r="2"/><path d="m6.5 10.5 4-4M6.5 13.5l4 4M13.5 6.5l4 4M13.5 17.5l4-4M7 12h10"/></symbol>
+  <symbol id="i-api" viewBox="0 0 24 24"><path d="m8 7-5 5 5 5M16 7l5 5-5 5M14 4.5l-4 15"/></symbol>
+  <symbol id="i-drone" viewBox="0 0 24 24"><circle cx="5.5" cy="5.5" r="2.5"/><circle cx="18.5" cy="5.5" r="2.5"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/><path d="m7.5 7.5 2.5 2.5M16.5 7.5 14 10M7.5 16.5 10 14M16.5 16.5 14 14"/><rect x="10" y="10" width="4" height="4" rx=".8"/></symbol>
+  <symbol id="i-station" viewBox="0 0 24 24"><path d="M12 21V10.5M8 21h8"/><circle cx="12" cy="7.5" r="3"/><path d="M3 7.5h6M15 7.5h6M5 5.5v4M19 5.5v4"/></symbol>
+  <symbol id="i-sheet" viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="15" rx="1.5"/><path d="M3.5 9.5h17M3.5 14.5h17M9.5 4.5v15"/></symbol>
+  <symbol id="i-erp" viewBox="0 0 24 24"><rect x="3.5" y="4" width="17" height="6.5" rx="1.5"/><rect x="3.5" y="13.5" width="17" height="6.5" rx="1.5"/><path d="M7 7.25h.01M7 16.75h.01M11 7.25h6M11 16.75h6"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4.5" y="10.5" width="15" height="10" rx="2"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3M12 14.5v2"/></symbol>
+  <symbol id="i-backup" viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7.5" ry="2.5"/><path d="M4.5 6v6c0 1.4 3.4 2.5 7.5 2.5s7.5-1.1 7.5-2.5V6M4.5 12v6c0 1.4 3.4 2.5 7.5 2.5 1 0 2-.1 2.9-.2"/><path d="m17 16 2 2 2.5-3"/></symbol>
+  <symbol id="i-key" viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="m11 12 8.5-8.5M16 7l2.5 2.5M14 9l1.8 1.8"/></symbol>
+  <symbol id="i-server" viewBox="0 0 24 24"><path d="M6.5 18.5h11a4 4 0 0 0 .6-7.95A6 6 0 0 0 6.6 9.3a4.6 4.6 0 0 0-.1 9.2z"/><path d="M9.5 14.5h5M12 12v5"/></symbol>
+  <symbol id="i-pulse" viewBox="0 0 24 24"><path d="M2.5 12.5h4l2.2-6 4.4 12 2.2-6h6.2"/></symbol>
+  <symbol id="i-field" viewBox="0 0 24 24"><path d="M3 20.5 7 4h10l4 16.5z"/><path d="M9.5 4 8 20.5M14.5 4l1.5 16.5M12 4v16.5"/></symbol>
+  <symbol id="i-fields" viewBox="0 0 24 24"><path d="M3.5 3.5h7v7h-7zM13.5 3.5h7v7h-7zM3.5 13.5h7v7h-7zM13.5 13.5h7v7h-7z"/><path d="M6 3.5v7M8.5 13.5v7M13.5 6h7M16 13.5v7"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s6.5-6.1 6.5-11.2a6.5 6.5 0 0 0-13 0C5.5 14.9 12 21 12 21z"/><circle cx="12" cy="9.8" r="2.3"/></symbol>
+  <symbol id="i-network" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2.5"/><circle cx="4.5" cy="5.5" r="1.8"/><circle cx="19.5" cy="5.5" r="1.8"/><circle cx="4.5" cy="18.5" r="1.8"/><circle cx="19.5" cy="18.5" r="1.8"/><path d="m6 7 4.2 3.4M18 7l-4.2 3.4M6 17l4.2-3.4M18 17l-4.2-3.4"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3.5 20.5h17M6.5 17v-5M11 17V7M15.5 17v-7M20 17V4.5"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M3.5 8h17M3.5 16h17"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="m5.5 5.5 13 13M18.5 5.5l-13 13"/></symbol>
+  <symbol id="i-linkedin" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="2.5"/><path d="M8 10.5v6M8 7.5v.01M11.5 16.5v-6M11.5 13a2.5 2.5 0 0 1 5 0v3.5"/></symbol>
+  <symbol id="i-instagram" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17 7h.01"/></symbol>
+  <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M12 3.5c.6 4.4 2.9 7 8.5 8.5-5.6 1.5-7.9 4.1-8.5 8.5-.6-4.4-2.9-7-8.5-8.5 5.6-1.5 7.9-4.1 8.5-8.5z"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4.5 19.5l1.3-3.6A7.5 7.5 0 1 1 8.4 18.6z"/><path d="M9 10.5h6M9 13.5h4"/></symbol>
+  <symbol id="logo-mark" viewBox="0 0 28 28"><rect x="12" y="1.5" width="4" height="4" class="lm-dot"/><path d="M11 9h6M8 14h12M5 19h6.2M16.8 19H23M2 24h7.5M18.5 24H26"/></symbol>
+</svg>
+
+<a class="skip" href="#conteudo">Pular para o conteúdo</a>
+
+<header class="site-header" id="topo">
+  <div class="site-header__in">
+    <a class="logo" href="#conteudo" aria-label="AGROVANT — início">
+      <svg class="logo__mark" aria-hidden="true"><use href="#logo-mark"/></svg>
+      <span class="logo__word">AGROVANT</span>
+    </a>
+    <nav class="nav" aria-label="Principal">
+      <ul>
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#plataforma">Plataforma</a></li>
+        <li><a href="#recursos">Soluções</a></li>
+        <li><a href="#resultados">Resultados</a></li>
+        <li><a href="#tecnologia">Tecnologia</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+    </nav>
+    <div class="header-actions">
+      <a class="btn btn--lime btn--sm" href="#contato">Solicitar demonstração</a>
+      <button class="burger" type="button" aria-expanded="false" aria-controls="drawer" aria-label="Abrir menu">
+        <svg aria-hidden="true"><use href="#i-menu"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="drawer" id="drawer" hidden>
+  <nav aria-label="Menu móvel">
+    <ul>
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#plataforma">Plataforma</a></li>
+      <li><a href="#recursos">Soluções</a></li>
+      <li><a href="#resultados">Resultados</a></li>
+      <li><a href="#tecnologia">Tecnologia</a></li>
+      <li><a href="#contato">Contato</a></li>
+    </ul>
+  </nav>
+  <div class="drawer__foot">
+    <a class="btn btn--lime" href="#contato">Solicitar demonstração <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    <p class="mono">12°32′41″S · 55°42′18″W</p>
+  </div>
+</div>
+
+<main id="conteudo">
+
+<!-- ============ HERO ============ -->
+<section class="hero" aria-labelledby="hero-title">
+  <div class="scene" data-scene data-band="rgb">
+    <picture class="scene__img scene__img--rgb is-on">
+      <source media="(max-width: 760px)" srcset="assets/img/hero-rows-m.webp">
+      <img src="assets/img/hero-rows.webp" alt="" width="1800" height="1125" fetchpriority="high">
+    </picture>
+    <picture class="scene__img scene__img--ndvi">
+      <source media="(max-width: 760px)" srcset="assets/img/hero-rows-m.webp">
+      <img src="assets/img/hero-rows.webp" alt="" width="1800" height="1125">
+    </picture>
+    <picture class="scene__img scene__img--umid">
+      <source media="(max-width: 760px)" srcset="assets/img/hero-rows-m.webp">
+      <img src="assets/img/hero-rows.webp" alt="" width="1800" height="1125">
+    </picture>
+    <div class="scene__sweep" aria-hidden="true"><span class="mono">PROCESSANDO <b data-sweep-label>NDVI</b></span></div>
+    <div class="scene__shade"></div>
+    <div class="graticule" aria-hidden="true">
+      <span class="gt gt--x" style="--p:25%">55°43′W</span>
+      <span class="gt gt--x" style="--p:50%">55°42′W</span>
+      <span class="gt gt--x" style="--p:75%">55°41′W</span>
+      <span class="gt gt--y" style="--p:33.33%">12°32′S</span>
+      <span class="gt gt--y" style="--p:66.66%">12°33′S</span>
+    </div>
+  </div>
+
+
+  <div class="hero__in wrap">
+    <div class="hero__copy">
+      <p class="tag mono" data-hero-in>Tecnologia para quem produz</p>
+      <h1 id="hero-title" class="display" data-hero-in>
+        <span class="line">Decisões melhores.</span>
+        <span class="line">Safras mais <em>inteligentes.</em></span>
+      </h1>
+      <p class="hero__lead" data-hero-in>Acompanhe sua operação agrícola em tempo real e transforme dados de clima, lavoura, máquinas e produtividade em decisões mais precisas.</p>
+      <div class="cta-row" data-hero-in>
+        <a class="btn btn--lime btn--lg" href="#contato">Solicitar demonstração</a>
+        <a class="btn btn--ghost btn--lg" href="#plataforma">Conhecer a plataforma <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      </div>
+      <ul class="hero__checks" data-hero-in>
+        <li><svg aria-hidden="true"><use href="#i-check"/></svg>Monitoramento em tempo real</li>
+        <li><svg aria-hidden="true"><use href="#i-check"/></svg>Dados centralizados</li>
+        <li><svg aria-hidden="true"><use href="#i-check"/></svg>Acesso em qualquer dispositivo</li>
+      </ul>
+    </div>
+
+    <figure class="hdash" aria-label="Prévia do dashboard AGROVANT: Fazenda Santa Helena, 1.284 hectares monitorados, previsão de 74,8 sacas por hectare, 18,2 mm de precipitação e 26,4 graus.">
+      <div class="plate hd-main" data-plate>
+        <div class="hd-top">
+          <span class="hd-prop"><svg class="logo__mark sm" aria-hidden="true"><use href="#logo-mark"/></svg>Santa Helena</span>
+          <span class="hd-safra mono">Safra 2026/27</span>
+          <span class="live mono"><i></i>Ao vivo</span>
+        </div>
+        <div class="hd-map">
+          <svg class="farm" data-farm data-prop="santa-helena" data-layer="ndvi" data-photo="assets/img/talhoes-m.webp" viewBox="0 0 600 360" preserveAspectRatio="xMidYMid slice" aria-hidden="true"></svg>
+          <span class="hd-pin" style="--x:34%;--y:30%" aria-hidden="true"><i></i></span>
+          <span class="hd-maplabel mono" data-hd-label>NDVI · 0,76 média</span>
+        </div>
+        <div class="hd-kpis">
+          <div class="hd-kpi"><span class="k-l">Área monitorada</span><span class="k-v"><b data-count="1284" data-format="int">1.284</b> ha</span><svg class="spark" viewBox="0 0 100 24" preserveAspectRatio="none" aria-hidden="true"><path d="M0 20 L14 18 L28 18 L42 14 L56 13 L70 10 L84 8 L100 6"/></svg></div>
+          <div class="hd-kpi"><span class="k-l">Previsão</span><span class="k-v"><b data-count="74.8" data-format="dec1">74,8</b> sc/ha</span><svg class="spark" viewBox="0 0 100 24" preserveAspectRatio="none" aria-hidden="true"><path d="M0 18 L14 16 L28 17 L42 12 L56 13 L70 9 L84 10 L100 5"/></svg></div>
+          <div class="hd-kpi"><span class="k-l">Precipitação</span><span class="k-v"><b data-count="18.2" data-format="dec1">18,2</b> mm</span><svg class="spark" viewBox="0 0 100 24" preserveAspectRatio="none" aria-hidden="true"><path d="M0 22 L14 22 L28 12 L42 20 L56 22 L70 6 L84 18 L100 14"/></svg></div>
+          <div class="hd-kpi"><span class="k-l">Temperatura</span><span class="k-v"><b data-count="26.4" data-format="dec1">26,4</b>°C</span><svg class="spark" viewBox="0 0 100 24" preserveAspectRatio="none" aria-hidden="true"><path d="M0 14 L14 12 L28 10 L42 8 L56 9 L70 11 L84 10 L100 12"/></svg></div>
+        </div>
+      </div>
+      <div class="plate hd-wx" data-plate aria-hidden="true">
+        <div class="hd-wx__row"><svg class="ico"><use href="#i-partly"/></svg><span class="hd-wx__t">26°</span><span class="hd-wx__c">Parcialmente<br>nublado</span></div>
+        <div class="hd-wx__bars">
+          <i style="--h:20%"></i><i style="--h:35%"></i><i style="--h:10%"></i><i style="--h:62%"></i><i style="--h:80%"></i><i style="--h:44%"></i><i style="--h:18%"></i>
+        </div>
+        <div class="hd-wx__days mono"><span>S</span><span>T</span><span>Q</span><span>Q</span><span>S</span><span>S</span><span>D</span></div>
+      </div>
+      <div class="plate hd-alert" data-plate aria-hidden="true">
+        <span class="dot dot--warn"></span>
+        <div><b>Umidade baixa</b><span>Talhão 04 · 34% · há 6 min</span></div>
+      </div>
+      <figcaption class="sr-only">Mockup ilustrativo da plataforma, com dados demonstrativos.</figcaption>
+    </figure>
+  </div>
+
+  <div class="bands wrap" role="group" aria-label="Processar imagem aérea">
+    <span class="bands__l mono">Banda</span>
+    <button type="button" class="band-btn is-on" data-band-btn="rgb" aria-pressed="true">Satélite</button>
+    <button type="button" class="band-btn" data-band-btn="ndvi" aria-pressed="false">NDVI</button>
+    <button type="button" class="band-btn" data-band-btn="umid" aria-pressed="false">Umidade</button>
+    <p class="bands__read" aria-live="polite"><b class="mono" data-band-name>RGB</b><span data-band-desc>Cor natural, como o olho vê.</span></p>
+    <div class="hero__meta mono" aria-hidden="true"><span>CENA S2B · MSI L2A</span><span>04.10.2026 · 13:42 UTC</span><span>NUVENS 2%</span><span>RES 10 m</span></div>
+  </div>
+</section>
+
+<!-- ============ MÉTRICAS ============ -->
+<section class="metrics" aria-label="Números da plataforma">
+  <div class="wrap">
+    <dl class="metrics__row">
+      <div class="metric"><dt>monitorados pela plataforma</dt><dd><span class="pre">+</span><b data-count="480" data-format="int">480</b><span class="unit"> mil ha</span></dd></div>
+      <div class="metric"><dt>propriedades conectadas</dt><dd><span class="pre">+</span><b data-count="320" data-format="int">320</b></dd></div>
+      <div class="metric"><dt>eficiência operacional média*</dt><dd><span class="pre">+</span><b data-count="18" data-format="int">18</b><span class="unit">%</span></dd></div>
+      <div class="metric"><dt>monitoramento de dados</dt><dd><b>24/7</b></dd></div>
+    </dl>
+    <p class="disclaimer">* Dados demonstrativos do projeto conceitual.</p>
+  </div>
+</section>
+
+<!-- ============ PROBLEMA ============ -->
+<section class="section problem" id="sobre" data-nav="sobre" aria-labelledby="problem-title">
+  <div class="wrap">
+    <div class="rail" data-reveal><span class="rail__l">Gestão inteligente</span><span class="rail__m">12°32′41″S · 55°42′18″W</span></div>
+    <div class="problem__grid">
+      <h2 id="problem-title" class="h2" data-reveal>O campo gera milhares de dados todos os dias.</h2>
+      <div class="problem__txt" data-reveal>
+        <p class="problem__sub">A diferença está em saber o que fazer com eles.</p>
+        <p>A AGROVANT reúne informações essenciais da operação agrícola em uma única plataforma, ajudando produtores e gestores a acompanhar o que acontece na propriedade e tomar decisões com mais segurança.</p>
+      </div>
+    </div>
+  </div>
+  <figure class="survey wrap-wide" data-survey>
+    <div class="survey__img" data-clip>
+      <picture>
+        <source media="(max-width: 760px)" srcset="assets/img/talhoes-m.webp">
+        <img src="assets/img/talhoes.webp" alt="Vista aérea de drone mostrando talhões de lavoura separados por uma estrada de terra" width="1800" height="1100" loading="lazy" decoding="async">
+      </picture>
+    </div>
+    <div class="survey__hud" aria-hidden="true">
+      <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+      <span class="survey__id mono">VOO DRN-0412 · ALT 120 m · GSD 3,2 cm</span>
+      <span class="survey__north mono"><svg viewBox="0 0 20 28"><path d="M10 2 16 22 10 18 4 22z"/></svg>N</span>
+      <span class="survey__scale mono"><i></i>0 — 200 m</span>
+    </div>
+    <ul class="marks" aria-label="Marcações de monitoramento">
+      <li class="mark" style="--x:22%;--y:66%"><i class="mark__pt"></i><div class="mark__card"><span class="mono">Talhão 01</span><b>Soja</b><span class="ok">NDVI 0,89 · excelente</span></div></li>
+      <li class="mark mark--warn" style="--x:60%;--y:24%"><i class="mark__pt"></i><div class="mark__card"><span class="mono">Talhão 04</span><b>Umidade baixa</b><span class="warn">34% · abaixo da média</span></div></li>
+      <li class="mark mark--info mark--flip" style="--x:84%;--y:70%"><i class="mark__pt"></i><div class="mark__card"><span class="mono">Talhão 03</span><b>Colheita prevista</b><span class="info">em 12 dias</span></div></li>
+    </ul>
+    <figcaption class="sr-only">Fotografia aérea com marcações ilustrativas de monitoramento.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ PLATAFORMA ============ -->
+<section class="section platform" id="plataforma" data-nav="plataforma" aria-labelledby="platform-title">
+  <div class="wrap">
+    <div class="rail" data-reveal><span class="rail__l">Uma plataforma. Toda a operação.</span><span class="rail__m">Sincronizado há 2 min</span></div>
+    <div class="platform__head">
+      <h2 id="platform-title" class="h2" data-reveal>Tudo o que acontece na fazenda em um só lugar.</h2>
+      <p class="platform__hint" data-reveal>Experimente: troque de propriedade, navegue pelo menu e clique nos talhões. Os dados são demonstrativos.</p>
+    </div>
+    <a class="skip-demo" href="#recursos">Pular demonstração interativa</a>
+  </div>
+
+  <div class="app wrap-wide" data-app data-reveal>
+    <aside class="app__side">
+      <div class="app__brand"><svg class="logo__mark" aria-hidden="true"><use href="#logo-mark"/></svg><span>AGROVANT</span></div>
+      <nav class="app__nav" aria-label="Menu da plataforma (demonstração)">
+        <button type="button" class="is-on" data-view="overview" aria-pressed="true"><svg aria-hidden="true"><use href="#i-grid"/></svg>Visão geral</button>
+        <button type="button" data-view="map" aria-pressed="false"><svg aria-hidden="true"><use href="#i-map"/></svg>Mapa</button>
+        <button type="button" data-view="crops" aria-pressed="false"><svg aria-hidden="true"><use href="#i-rows"/></svg>Lavouras</button>
+        <button type="button" data-view="climate" aria-pressed="false"><svg aria-hidden="true"><use href="#i-cloud"/></svg>Clima</button>
+        <button type="button" data-view="machines" aria-pressed="false"><svg aria-hidden="true"><use href="#i-tractor"/></svg>Máquinas</button>
+        <button type="button" data-view="seasons" aria-pressed="false"><svg aria-hidden="true"><use href="#i-calendar"/></svg>Safras</button>
+        <button type="button" data-view="indicators" aria-pressed="false"><svg aria-hidden="true"><use href="#i-gauge"/></svg>Indicadores</button>
+        <button type="button" data-view="reports" aria-pressed="false"><svg aria-hidden="true"><use href="#i-file"/></svg>Relatórios</button>
+      </nav>
+      <div class="app__user"><span class="avatar">RA</span><span><b>Ricardo A.</b><small>Gestor agrícola</small></span></div>
+    </aside>
+
+    <div class="app__main">
+      <div class="app__top">
+        <div class="seg" role="group" aria-label="Propriedade">
+          <button type="button" class="is-on" data-prop="santa-helena" aria-pressed="true">Santa Helena</button>
+          <button type="button" data-prop="boa-esperanca" aria-pressed="false">Boa Esperança</button>
+          <button type="button" data-prop="sao-lucas" aria-pressed="false">São Lucas</button>
+        </div>
+        <div class="app__tools">
+          <form class="app__search" data-app-search role="search">
+            <svg aria-hidden="true"><use href="#i-search"/></svg>
+            <label class="sr-only" for="app-q">Buscar talhão ou máquina</label>
+            <input id="app-q" type="search" placeholder="Talhão ou máquina (ex.: 12, JD-08)" autocomplete="off" maxlength="24">
+          </form>
+          <div class="app__bellwrap">
+            <button type="button" class="app__bell" data-bell-btn aria-expanded="false" aria-controls="app-alerts" aria-label="Alertas da propriedade"><svg aria-hidden="true"><use href="#i-bell"/></svg><i data-bell>3</i></button>
+            <div class="app__pop" id="app-alerts" data-bell-pop hidden>
+              <p class="mono app__pop-h" data-bell-h>Alertas · Santa Helena</p>
+              <ul data-bell-list></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="app__body" aria-live="polite">
+        <div class="app__title">
+          <div>
+            <p class="mono app__kicker" data-f="safra">Safra 2026/27</p>
+            <h3 class="app__h" data-f="full">Propriedade Santa Helena</h3>
+          </div>
+          <span class="status" data-f="status" data-tone="ok"><i></i><span>Operação normal</span></span>
+        </div>
+
+        <!-- overview -->
+        <div class="view is-on" data-panel="overview">
+          <div class="kpis">
+            <div class="kpi"><span class="k-l">Área total</span><span class="k-v"><b data-f="total">1.284</b> ha</span></div>
+            <div class="kpi"><span class="k-l">Área cultivada</span><span class="k-v"><b data-f="cult">1.087</b> ha</span></div>
+            <div class="kpi"><span class="k-l">Cultura principal</span><span class="k-v"><b data-f="crop">Soja</b></span></div>
+            <div class="kpi"><span class="k-l">Previsão média</span><span class="k-v"><b data-f="forecast">74,8</b> sc/ha</span></div>
+          </div>
+          <div class="ov-grid">
+            <div class="panel panel--map">
+              <div class="panel__h"><span>Mapa NDVI</span><span class="mono" data-f="ndviavg">média 0,78</span></div>
+              <div class="panel__map">
+                <svg class="farm" data-farm data-prop="santa-helena" data-layer="ndvi" data-interactive data-target="app" viewBox="0 0 600 360" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Mapa NDVI dos talhões"></svg>
+              </div>
+              <div class="sel" data-sel="app">
+                <p class="sel__h mono">Talhão <b data-s="id">08</b></p>
+                <dl>
+                  <div><dt>Área</dt><dd data-s="area">46,2 ha</dd></div>
+                  <div><dt>Cultura</dt><dd data-s="crop">Soja</dd></div>
+                  <div><dt>NDVI</dt><dd data-s="ndvi">0,82</dd></div>
+                  <div><dt>Umidade</dt><dd data-s="umid">67%</dd></div>
+                  <div><dt>Status</dt><dd data-s="status">Saudável</dd></div>
+                </dl>
+              </div>
+            </div>
+            <div class="panel">
+              <div class="panel__h"><span>Produtividade por talhão</span><span class="mono">sc/ha</span></div>
+              <div class="bars bars--talhao" data-chart="talhao"></div>
+            </div>
+            <div class="panel">
+              <div class="panel__h"><span>Precipitação — últimos 30 dias</span><span class="mono" data-f="rainsum">72 mm</span></div>
+              <div class="bars bars--rain" data-chart="rain30"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- map -->
+        <div class="view" data-panel="map" hidden>
+          <div class="panel panel--bigmap">
+            <div class="panel__h"><span>Mapa da propriedade</span><span class="mono">Clique em um talhão</span></div>
+            <svg class="farm" data-farm data-prop="santa-helena" data-layer="ndvi" data-interactive data-target="app" viewBox="0 0 600 360" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Mapa completo dos talhões"></svg>
+          </div>
+        </div>
+
+        <!-- crops -->
+        <div class="view" data-panel="crops" hidden>
+          <div class="panel">
+            <div class="panel__h"><span>Lavouras por talhão</span><span class="mono">ordenado por NDVI</span></div>
+            <div class="tbl" data-table="crops"></div>
+          </div>
+        </div>
+
+        <!-- climate -->
+        <div class="view" data-panel="climate" hidden>
+          <div class="climate-mini">
+            <div class="panel cm-now">
+              <svg class="ico ico--xl" aria-hidden="true"><use href="#i-partly"/></svg>
+              <div><span class="cm-t" data-f="temp">26°C</span><span class="cm-c">Parcialmente nublado</span></div>
+              <dl class="cm-stats">
+                <div><dt>Umidade</dt><dd>67%</dd></div><div><dt>Vento</dt><dd>12 km/h</dd></div><div><dt>Chuva</dt><dd>18%</dd></div>
+              </dl>
+            </div>
+            <div class="panel">
+              <div class="panel__h"><span>Próximos 7 dias</span><span class="mono">máx / mín</span></div>
+              <div class="week week--mini" data-week></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- machines -->
+        <div class="view" data-panel="machines" hidden>
+          <div class="panel">
+            <div class="panel__h"><span>Frota em operação</span><span class="mono">horas na safra</span></div>
+            <div class="tbl" data-table="machines"></div>
+          </div>
+        </div>
+
+        <!-- seasons -->
+        <div class="view" data-panel="seasons" hidden>
+          <div class="panel">
+            <div class="panel__h"><span>Produtividade média por safra</span><span class="mono">sc/ha</span></div>
+            <div class="bars bars--season" data-chart="seasons-mini"></div>
+          </div>
+        </div>
+
+        <!-- indicators -->
+        <div class="view" data-panel="indicators" hidden>
+          <div class="ind-grid" data-indicators></div>
+        </div>
+
+        <!-- reports -->
+        <div class="view" data-panel="reports" hidden>
+          <div class="panel">
+            <div class="panel__h"><span>Relatórios</span><span class="mono">gerados automaticamente</span></div>
+            <ul class="reports" data-reports></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RECURSOS ============ -->
+<section class="section section--pair features" id="recursos" data-nav="recursos" aria-labelledby="features-title">
+  <div class="wrap">
+    <div class="rail" data-reveal><span class="rail__l">Tecnologia que trabalha com você</span><span class="rail__m">6 módulos · 1 base de dados</span></div>
+    <h2 id="features-title" class="h2 features__title" data-reveal>Seis módulos que leem a mesma terra.</h2>
+    <div class="features__grid">
+      <ol class="flist" data-flist>
+        <li><button type="button" class="frow is-on" data-f-idx="0" aria-pressed="true"><span class="frow__n mono">01</span><span class="frow__t">Monitoramento de lavoura</span><span class="frow__d">Acompanhe o desenvolvimento das culturas e identifique alterações antes que elas se tornem problemas.</span></button></li>
+        <li><button type="button" class="frow" data-f-idx="1" aria-pressed="false"><span class="frow__n mono">02</span><span class="frow__t">Inteligência climática</span><span class="frow__d">Dados históricos e previsões ajudam você a planejar aplicações, plantio e colheita.</span></button></li>
+        <li><button type="button" class="frow" data-f-idx="2" aria-pressed="false"><span class="frow__n mono">03</span><span class="frow__t">Gestão de máquinas</span><span class="frow__d">Visualize utilização, horas trabalhadas e desempenho dos equipamentos.</span></button></li>
+        <li><button type="button" class="frow" data-f-idx="3" aria-pressed="false"><span class="frow__n mono">04</span><span class="frow__t">Mapas e talhões</span><span class="frow__d">Organize propriedades, áreas produtivas e históricos de safra.</span></button></li>
+        <li><button type="button" class="frow" data-f-idx="4" aria-pressed="false"><span class="frow__n mono">05</span><span class="frow__t">Indicadores de produtividade</span><span class="frow__d">Compare áreas, safras e resultados utilizando dados consolidados.</span></button></li>
+        <li><button type="button" class="frow" data-f-idx="5" aria-pressed="false"><span class="frow__n mono">06</span><span class="frow__t">Relatórios inteligentes</span><span class="frow__d">Transforme informações operacionais em relatórios objetivos para apoiar decisões.</span></button></li>
+      </ol>
+      <div class="fview" aria-hidden="true">
+        <div class="fview__frame">
+          <span class="fview__tag mono" data-fview-tag>MÓDULO 01 · LAVOURA</span>
+          <!-- 0 lavoura: change detection -->
+          <div class="fv is-on" data-fv="0">
+            <svg class="farm" data-farm data-prop="boa-esperanca" data-layer="ndvi" viewBox="0 0 600 360" preserveAspectRatio="xMidYMid slice"></svg>
+            <div class="fv-delta"><span class="mono">Δ NDVI 14 dias</span><b>−0,11</b><span>Talhão 12 · verificar</span></div>
+          </div>
+          <!-- 1 clima -->
+          <div class="fv" data-fv="1">
+            <svg class="fv-line" viewBox="0 0 400 220" preserveAspectRatio="none"><path class="fv-area" d="M0 160 C40 150 60 120 100 125 S160 70 200 80 S260 140 300 120 S360 60 400 70 V220 H0Z"/><path class="fv-stroke" d="M0 160 C40 150 60 120 100 125 S160 70 200 80 S260 140 300 120 S360 60 400 70"/><path class="fv-dash" d="M0 180 C60 175 120 150 200 150 S330 120 400 110"/></svg>
+            <div class="fv-legend mono"><span><i class="l1"></i>Previsão</span><span><i class="l2"></i>Média histórica</span></div>
+            <div class="fv-delta"><span class="mono">Janela ideal de aplicação</span><b>Qui 10h–16h</b><span>vento &lt; 10 km/h</span></div>
+          </div>
+          <!-- 2 máquinas -->
+          <div class="fv" data-fv="2">
+            <ul class="fv-mach">
+              <li><span>JD-08 · Trator</span><i style="--w:92%"></i><b>324 h</b></li>
+              <li><span>CS-02 · Colheitadeira</span><i style="--w:71%"></i><b>251 h</b></li>
+              <li><span>PL-05 · Plantadeira</span><i style="--w:58%"></i><b>198 h</b></li>
+              <li><span>PV-01 · Pulverizador</span><i style="--w:44%"></i><b>152 h</b></li>
+            </ul>
+            <div class="fv-delta"><span class="mono">Utilização média</span><b>78%</b><span>+14,2% vs. safra anterior</span></div>
+          </div>
+          <!-- 3 mapas -->
+          <div class="fv" data-fv="3">
+            <svg class="farm" data-farm data-prop="sao-lucas" data-layer="sat" data-photo="assets/img/tractor-curve.webp" data-photo-m="assets/img/tractor-curve-m.webp" viewBox="0 0 600 360" preserveAspectRatio="xMidYMid slice"></svg>
+            <div class="fv-delta"><span class="mono">18 talhões</span><b>731 ha</b><span>4 safras de histórico</span></div>
+          </div>
+          <!-- 4 indicadores -->
+          <div class="fv" data-fv="4">
+            <div class="fv-cmp">
+              <div><span class="mono">Área A</span><i style="--h:87%"></i><b>76,2</b></div>
+              <div><span class="mono">Área B</span><i style="--h:67%"></i><b>70,1</b></div>
+              <div><span class="mono">Área C</span><i style="--h:94%"></i><b>78,1</b></div>
+              <div><span class="mono">Média</span><i class="avg" style="--h:83%"></i><b>74,8</b></div>
+            </div>
+            <div class="fv-delta"><span class="mono">sc/ha · safra 26/27</span><b>+5,1%</b><span>vs. 25/26</span></div>
+          </div>
+          <!-- 5 relatórios -->
+          <div class="fv" data-fv="5">
+            <div class="fv-doc">
+              <p class="mono">RELATÓRIO SEMANAL · SANTA HELENA</p>
+              <p class="fv-doc__h">Semana 40 · 2026</p>
+              <span class="ln" style="--w:92%"></span><span class="ln" style="--w:78%"></span><span class="ln" style="--w:85%"></span>
+              <div class="fv-doc__row"><b>74,8</b><b>18,2</b><b>3</b></div>
+              <div class="fv-doc__row mono"><span>sc/ha</span><span>mm</span><span>alertas</span></div>
+              <span class="ln" style="--w:66%"></span><span class="ln" style="--w:80%"></span>
+            </div>
+            <div class="fv-delta"><span class="mono">Envio automático</span><b>Seg 07:00</b><span>PDF + planilha</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MAPA INTERATIVO ============ -->
+<section class="section fieldmap" id="mapa" data-nav="recursos" aria-labelledby="map-title">
+  <div class="wrap fieldmap__grid">
+    <div class="fieldmap__side">
+      <div class="rail" data-reveal><span class="rail__l">Visão da propriedade</span><span class="rail__m">18 talhões</span></div>
+      <h2 id="map-title" class="h2" data-reveal>Veja o campo como dados.</h2>
+      <div class="layers seg" role="group" aria-label="Camada do mapa" data-reveal>
+        <button type="button" data-layer-btn="sat" aria-pressed="false">Satélite</button>
+        <button type="button" class="is-on" data-layer-btn="ndvi" aria-pressed="true">NDVI</button>
+        <button type="button" data-layer-btn="umid" aria-pressed="false">Umidade</button>
+        <button type="button" data-layer-btn="prod" aria-pressed="false">Produtividade</button>
+      </div>
+      <ul class="legend" data-legend data-reveal>
+        <li><i style="--c:var(--c-exc)"></i>Excelente</li>
+        <li><i style="--c:var(--c-ok)"></i>Saudável</li>
+        <li><i style="--c:var(--c-att)"></i>Atenção</li>
+        <li><i style="--c:var(--c-crit)"></i>Crítico</li>
+      </ul>
+      <p class="layer-note" data-layer-note data-reveal>O NDVI mede o vigor da lavoura pela luz que as folhas refletem. Quanto mais perto de 1, mais saudável.</p>
+      <div class="sel sel--big" data-sel="map" data-reveal>
+        <p class="sel__h mono">Talhão <b data-s="id">08</b></p>
+        <dl>
+          <div><dt>Área</dt><dd data-s="area">46,2 ha</dd></div>
+          <div><dt>Cultura</dt><dd data-s="crop">Soja</dd></div>
+          <div><dt>Índice vegetal</dt><dd data-s="ndvi">0,82</dd></div>
+          <div><dt>Umidade</dt><dd data-s="umid">67%</dd></div>
+          <div><dt>Produtividade</dt><dd data-s="prod">75,1 sc/ha</dd></div>
+          <div><dt>Status</dt><dd data-s="status">Saudável</dd></div>
+        </dl>
+      </div>
+    </div>
+    <div class="fieldmap__stage" data-reveal>
+      <div class="stage" data-stage>
+        <svg class="farm farm--big" data-farm data-prop="santa-helena" data-layer="ndvi" data-interactive data-target="map" data-photo="assets/img/talhoes.webp" data-photo-m="assets/img/talhoes-m.webp" data-progressive viewBox="0 0 600 360" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Mapa interativo dos talhões da Fazenda Santa Helena"></svg>
+        <div class="stage__sweep" aria-hidden="true"></div>
+        <div class="tip" data-tip hidden></div>
+        <div class="stage__hud mono" aria-hidden="true">
+          <span class="s-tl">12°32′S</span><span class="s-tr">55°40′W</span><span class="s-bl"><i></i>0 — 500 m</span><span class="s-br">NDVI · SENTINEL-2 · 10 m</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLIMA ============ -->
+<section class="section section--pair climate" data-nav="recursos" aria-labelledby="climate-title">
+  <div class="wrap">
+    <div class="rail" data-reveal><span class="rail__l">Clima e previsibilidade</span><span class="rail__m">Estação SH-01 · atualizado 13:40</span></div>
+    <div class="climate__head">
+      <h2 id="climate-title" class="h2" data-reveal>O clima muda. Sua estratégia também.</h2>
+      <p class="climate__txt" data-reveal>Cruze informações climáticas com dados da lavoura para planejar operações no momento certo.</p>
+    </div>
+    <div class="wx" data-reveal>
+      <div class="wx__now">
+        <p class="mono wx__lbl">Hoje · Santa Helena</p>
+        <div class="wx__temp"><svg class="ico ico--xxl" aria-hidden="true"><use href="#i-partly"/></svg><span><b data-count="26" data-format="int">26</b>°C</span></div>
+        <p class="wx__cond">Parcialmente nublado</p>
+        <ol class="hours" aria-label="Próximas horas">
+          <li><span>14h</span><b>27°</b><i style="--h:10%"></i></li>
+          <li><span>15h</span><b>28°</b><i style="--h:12%"></i></li>
+          <li><span>16h</span><b>28°</b><i style="--h:18%"></i></li>
+          <li><span>17h</span><b>27°</b><i style="--h:26%"></i></li>
+          <li><span>18h</span><b>25°</b><i style="--h:34%"></i></li>
+          <li><span>19h</span><b>24°</b><i style="--h:22%"></i></li>
+          <li><span>20h</span><b>23°</b><i style="--h:14%"></i></li>
+        </ol>
+        <dl class="wx__stats">
+          <div><dt><svg aria-hidden="true"><use href="#i-drop"/></svg>Umidade</dt><dd>67%</dd></div>
+          <div><dt><svg aria-hidden="true"><use href="#i-wind"/></svg>Vento</dt><dd>12 km/h</dd></div>
+          <div><dt><svg aria-hidden="true"><use href="#i-rain"/></svg>Chuva</dt><dd>18%</dd></div>
+          <div><dt><svg aria-hidden="true"><use href="#i-chart"/></svg>Precipitação acumulada</dt><dd>72 mm</dd></div>
+        </dl>
+      </div>
+      <div class="wx__week">
+        <p class="mono wx__lbl">Previsão · 7 dias</p>
+        <div class="week" data-week></div>
+      </div>
+      <div class="wx__chart">
+        <div class="wx__ch-h"><p class="mono wx__lbl">Precipitação — últimos 30 dias</p><span class="mono wx__sum">Total <b>72 mm</b> · média histórica 64 mm</span></div>
+        <div class="bars bars--rain bars--tall" data-chart="rain30-big"></div>
+        <div class="bars__axis mono"><span>05 set</span><span>15 set</span><span>25 set</span><span>04 out</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ALERTAS (claro) ============ -->
+<section class="section alerts" data-nav="recursos" aria-labelledby="alerts-title">
+  <div class="wrap alerts__grid">
+    <div class="alerts__copy">
+      <div class="rail rail--light" data-reveal><span class="rail__l">Alertas inteligentes</span><span class="rail__m">Push · e-mail · WhatsApp</span></div>
+      <h2 id="alerts-title" class="h2" data-reveal>Você não precisa olhar o dashboard o tempo todo.</h2>
+      <p class="alerts__txt" data-reveal>A AGROVANT identifica eventos importantes e envia alertas para sua equipe.</p>
+    </div>
+    <ol class="notes" data-notes aria-label="Exemplos de alertas da plataforma">
+      <li class="note note--climate">
+        <div class="note__h"><span class="note__tag"><svg aria-hidden="true"><use href="#i-storm"/></svg>Alerta climático</span><time class="mono">agora</time></div>
+        <p class="note__msg">Previsão de chuva intensa nas próximas 12 horas.</p>
+        <p class="note__meta"><span>Propriedade</span><b>Santa Helena</b></p>
+      </li>
+      <li class="note note--soil">
+        <div class="note__h"><span class="note__tag"><svg aria-hidden="true"><use href="#i-drop"/></svg>Umidade do solo</span><time class="mono">há 6 min</time></div>
+        <p class="note__msg">Talhão 04 apresenta níveis abaixo da média.</p>
+        <p class="note__meta"><span>Umidade</span><b>34%</b><span class="note__bar"><i style="--w:34%"></i></span></p>
+      </li>
+      <li class="note note--machine">
+        <div class="note__h"><span class="note__tag"><svg aria-hidden="true"><use href="#i-tractor"/></svg>Máquina</span><time class="mono">há 1 h</time></div>
+        <p class="note__msg">Trator JD-08 atingiu intervalo previsto de manutenção.</p>
+        <p class="note__meta"><b>324 horas</b><span>trabalhadas</span></p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ IA ============ -->
+<section class="section ai" data-nav="recursos" aria-labelledby="ai-title">
+  <div class="wrap ai__grid">
+    <div class="ai__copy">
+      <div class="rail" data-reveal><span class="rail__l">AGROVANT Intelligence</span><span class="rail__m">beta</span></div>
+      <h2 id="ai-title" class="h2" data-reveal>Pergunte para os seus dados.</h2>
+      <p class="ai__txt" data-reveal>Transforme dados complexos em respostas simples.</p>
+      <div class="ai__chips" data-reveal>
+        <p class="mono">Experimente</p>
+        <button type="button" class="chip" data-q="0">Quais talhões tiveram queda de produtividade nesta safra?</button>
+        <button type="button" class="chip" data-q="1">Quando é a melhor janela para pulverizar?</button>
+        <button type="button" class="chip" data-q="2">Quais máquinas precisam de manutenção?</button>
+      </div>
+    </div>
+    <div class="chat" data-chat data-reveal>
+      <div class="chat__h">
+        <span class="chat__id"><svg class="logo__mark sm" aria-hidden="true"><use href="#logo-mark"/></svg>AGROVANT Intelligence</span>
+        <span class="mono chat__ctx">Contexto: Santa Helena · Safra 26/27</span>
+      </div>
+      <div class="chat__log" data-chat-log aria-live="polite">
+        <div class="msg msg--user"><p>Quais talhões tiveram queda de produtividade nesta safra?</p></div>
+        <div class="msg msg--ai">
+          <p>Foram identificadas quedas relevantes nos talhões 04, 12 e 17 em comparação com a safra anterior.</p>
+          <table class="dtable">
+            <caption class="sr-only">Variação de produtividade por talhão</caption>
+            <thead><tr><th scope="col">Talhão</th><th scope="col">Variação</th><th scope="col"><span class="sr-only">Gráfico</span></th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Talhão 04</th><td class="neg">−8,4%</td><td><i class="dbar" style="--w:90%"></i></td></tr>
+              <tr><th scope="row">Talhão 12</th><td class="neg">−6,7%</td><td><i class="dbar" style="--w:72%"></i></td></tr>
+              <tr><th scope="row">Talhão 17</th><td class="neg">−9,3%</td><td><i class="dbar" style="--w:100%"></i></td></tr>
+            </tbody>
+          </table>
+          <p class="msg__src mono">Fontes: colheita 25/26 · NDVI · estação SH-01</p>
+        </div>
+      </div>
+      <form class="chat__in" data-chat-form>
+        <label class="sr-only" for="ai-q">Pergunte algo sobre sua propriedade</label>
+        <input id="ai-q" name="q" type="text" placeholder="Pergunte algo sobre sua propriedade…" autocomplete="off" maxlength="140">
+        <button type="submit" class="chat__send" aria-label="Enviar pergunta"><svg aria-hidden="true"><use href="#i-send"/></svg></button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONECTIVIDADE ============ -->
+<section class="section section--pair connect" data-nav="recursos" aria-labelledby="connect-title">
+  <div class="wrap">
+    <div class="rail" data-reveal><span class="rail__l">Conecte sua operação</span><span class="rail__m">8 tipos de fonte</span></div>
+    <div class="connect__head">
+      <h2 id="connect-title" class="h2" data-reveal>Seus dados não precisam ficar espalhados.</h2>
+    </div>
+    <div class="hub" data-hub data-reveal>
+      <svg class="hub__lines" data-hub-lines aria-hidden="true"></svg>
+      <div class="hub__core" data-hub-core><svg class="logo__mark" aria-hidden="true"><use href="#logo-mark"/></svg><span>AGROVANT</span><small class="mono">data core</small></div>
+      <ul class="hub__nodes">
+        <li class="hnode" style="--a:0"><svg aria-hidden="true"><use href="#i-station"/></svg><span>Estações meteorológicas</span></li>
+        <li class="hnode" style="--a:1"><svg aria-hidden="true"><use href="#i-sensor"/></svg><span>Sensores de solo</span></li>
+        <li class="hnode" style="--a:2"><svg aria-hidden="true"><use href="#i-tractor"/></svg><span>Máquinas agrícolas</span></li>
+        <li class="hnode" style="--a:3"><svg aria-hidden="true"><use href="#i-drone"/></svg><span>Drones</span></li>
+        <li class="hnode" style="--a:4"><svg aria-hidden="true"><use href="#i-satellite"/></svg><span>Satélites</span></li>
+        <li class="hnode" style="--a:5"><svg aria-hidden="true"><use href="#i-erp"/></svg><span>ERPs agrícolas</span></li>
+        <li class="hnode" style="--a:6"><svg aria-hidden="true"><use href="#i-sheet"/></svg><span>Planilhas</span></li>
+        <li class="hnode" style="--a:7"><svg aria-hidden="true"><use href="#i-api"/></svg><span>APIs</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRODUTIVIDADE ============ -->
+<section class="section yield" id="resultados" data-nav="resultados" aria-labelledby="yield-title">
+  <div class="wrap">
+    <div class="rail" data-reveal><span class="rail__l">Produtividade</span><span class="rail__m">4 safras · soja</span></div>
+    <h2 id="yield-title" class="h2 yield__title" data-reveal>Compare. Entenda. Evolua.</h2>
+    <div class="yield__grid">
+      <div class="ychart" data-ychart data-reveal>
+        <p class="mono ychart__l">Produtividade média · sc/ha</p>
+        <div class="ychart__plot">
+          <div class="ychart__grid" aria-hidden="true"><span>80</span><span>70</span><span>60</span><span>50</span></div>
+          <svg class="ychart__line" viewBox="0 0 400 100" preserveAspectRatio="none" aria-hidden="true"><polyline data-yline points=""/></svg>
+          <ul class="ychart__cols">
+            <li style="--v:61.8"><button type="button" class="ycol" aria-label="Safra 23/24: 61,8 sacas por hectare"><span class="ycol__v">61,8</span><i></i></button><span class="ycol__s mono">23/24</span></li>
+            <li style="--v:66.4"><button type="button" class="ycol" aria-label="Safra 24/25: 66,4 sacas por hectare"><span class="ycol__v">66,4</span><i></i></button><span class="ycol__s mono">24/25</span></li>
+            <li style="--v:71.2"><button type="button" class="ycol" aria-label="Safra 25/26: 71,2 sacas por hectare"><span class="ycol__v">71,2</span><i></i></button><span class="ycol__s mono">25/26</span></li>
+            <li style="--v:74.8" class="is-now"><button type="button" class="ycol" aria-label="Safra 26/27: 74,8 sacas por hectare, previsão"><span class="ycol__v">74,8</span><i></i></button><span class="ycol__s mono">26/27 <em>prev.</em></span></li>
+          </ul>
+        </div>
+      </div>
+      <dl class="yind" data-reveal>
+        <div><dt>Eficiência operacional</dt><dd class="up"><b data-count="18.4" data-format="dec1sign">+18,4</b>%</dd></div>
+        <div><dt>Custo por hectare</dt><dd class="down"><b data-count="-9.8" data-format="dec1sign">−9,8</b>%</dd></div>
+        <div><dt>Utilização de máquinas</dt><dd class="up"><b data-count="14.2" data-format="dec1sign">+14,2</b>%</dd></div>
+      </dl>
+    </div>
+    <p class="disclaimer">Dados fictícios utilizados exclusivamente para demonstração do projeto.</p>
+  </div>
+</section>
+
+<!-- ============ MOBILE ============ -->
+<section class="section section--pair mobile" data-nav="resultados" aria-labelledby="mobile-title">
+  <div class="wrap mobile__head">
+    <div>
+      <div class="rail" data-reveal><span class="rail__l">O campo na palma da mão</span><span class="rail__m">offline-first</span></div>
+      <h2 id="mobile-title" class="h2" data-reveal>Do escritório ao talhão.</h2>
+    </div>
+    <div class="mobile__aside" data-reveal>
+      <p>Acesse informações importantes mesmo longe do computador. Sem sinal no talhão, o app continua funcionando e sincroniza quando a conexão volta.</p>
+      <ul class="badges"><li>Web</li><li>iOS</li><li>Android</li></ul>
+    </div>
+  </div>
+  <div class="phones" data-phones>
+    <figure class="phone" data-phone>
+      <div class="phone__scr">
+        <div class="ps-top mono"><span>13:42</span><span>Santa Helena</span></div>
+        <p class="ps-h">Visão geral</p>
+        <div class="ps-kpis"><div><span>Previsão</span><b>74,8</b><small>sc/ha</small></div><div><span>Área</span><b>1.284</b><small>ha</small></div><div><span>Chuva 7d</span><b>18,2</b><small>mm</small></div><div><span>Alertas</span><b class="lime">3</b><small>ativos</small></div></div>
+        <div class="ps-chart"><i style="--h:40%"></i><i style="--h:55%"></i><i style="--h:48%"></i><i style="--h:70%"></i><i style="--h:62%"></i><i style="--h:82%"></i><i style="--h:76%"></i><i style="--h:90%"></i></div>
+        <p class="ps-cap mono">NDVI médio · 8 semanas</p>
+        <p class="ps-sub">Talhões em atenção</p>
+        <div class="ps-row"><span class="mono">T04</span><span>Umidade 34%</span><i class="dot dot--warn"></i></div>
+        <div class="ps-row"><span class="mono">T12</span><span>NDVI 0,58</span><i class="dot dot--warn"></i></div>
+        <div class="ps-row"><span class="mono">T17</span><span>NDVI 0,56</span><i class="dot dot--warn"></i></div>
+      </div>
+      <figcaption>Dashboard</figcaption>
+    </figure>
+    <figure class="phone" data-phone>
+      <div class="phone__scr phone__scr--map">
+        <div class="ps-top mono"><span>13:42</span><span>Mapa</span></div>
+        <svg class="farm" data-farm data-prop="santa-helena" data-layer="ndvi" data-cols="3" viewBox="0 0 300 520" preserveAspectRatio="xMidYMid slice" aria-hidden="true"></svg>
+        <div class="ps-float"><span class="mono">Talhão 08</span><b>NDVI 0,82</b><span>Saudável</span></div>
+      </div>
+      <figcaption>Mapa de propriedade</figcaption>
+    </figure>
+    <figure class="phone" data-phone>
+      <div class="phone__scr">
+        <div class="ps-top mono"><span>13:42</span><span>Alertas</span></div>
+        <p class="ps-h">Alertas <span class="ps-count">3</span></p>
+        <div class="ps-alert"><i class="dot dot--info"></i><div><b>Chuva intensa</b><span>Próximas 12 h · Santa Helena</span></div></div>
+        <div class="ps-alert"><i class="dot dot--warn"></i><div><b>Umidade do solo</b><span>Talhão 04 · 34%</span></div></div>
+        <div class="ps-alert"><i class="dot dot--lime"></i><div><b>Manutenção</b><span>Trator JD-08 · 324 h</span></div></div>
+        <div class="ps-alert ps-alert--old"><i class="dot"></i><div><b>Colheita prevista</b><span>Talhão 03 · em 12 dias</span></div></div>
+      </div>
+      <figcaption>Alertas</figcaption>
+    </figure>
+    <figure class="phone" data-phone>
+      <div class="phone__scr">
+        <div class="ps-top mono"><span>13:42</span><span>Clima</span></div>
+        <div class="ps-wx"><svg aria-hidden="true"><use href="#i-partly"/></svg><b>26°</b><span>Parcialmente nublado</span></div>
+        <ul class="ps-week">
+          <li><span>Seg</span><svg aria-hidden="true"><use href="#i-sun"/></svg><b>31°</b><small>19°</small></li>
+          <li><span>Ter</span><svg aria-hidden="true"><use href="#i-partly"/></svg><b>29°</b><small>20°</small></li>
+          <li><span>Qua</span><svg aria-hidden="true"><use href="#i-rain"/></svg><b>25°</b><small>19°</small></li>
+          <li><span>Qui</span><svg aria-hidden="true"><use href="#i-storm"/></svg><b>24°</b><small>18°</small></li>
+          <li><span>Sex</span><svg aria-hidden="true"><use href="#i-partly"/></svg><b>27°</b><small>18°</small></li>
+        </ul>
+        <p class="ps-sub">Chuva · próximos dias</p>
+        <div class="ps-chart ps-chart--rain"><i style="--h:6%"></i><i style="--h:22%"></i><i style="--h:74%"></i><i style="--h:88%"></i><i style="--h:61%"></i><i style="--h:15%"></i><i style="--h:9%"></i></div>
+      </div>
+      <figcaption>Clima</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ PARA QUEM ============ -->
+<section class="section section--pair who" data-nav="resultados" aria-labelledby="who-title">
+  <div class="wrap">
+    <div class="rail" data-reveal><span class="rail__l">Feita para diferentes operações</span><span class="rail__m">de 1 a 100+ propriedades</span></div>
+    <h2 id="who-title" class="h2 who__title" data-reveal>Uma escala para cada operação.</h2>
+    <ul class="who__list" data-reveal>
+      <li><svg aria-hidden="true"><use href="#i-field"/></svg><h3>Produtor Rural</h3><p>Controle sua propriedade com mais informação.</p><span class="who__scale mono">1 propriedade</span></li>
+      <li><svg aria-hidden="true"><use href="#i-fields"/></svg><h3>Grupos Agrícolas</h3><p>Centralize dados de diferentes propriedades.</p><span class="who__scale mono">multi-fazenda</span></li>
+      <li><svg aria-hidden="true"><use href="#i-pin"/></svg><h3>Consultorias Agronômicas</h3><p>Acompanhe seus clientes e áreas monitoradas.</p><span class="who__scale mono">carteira de clientes</span></li>
+      <li><svg aria-hidden="true"><use href="#i-network"/></svg><h3>Cooperativas</h3><p>Transforme dados em inteligência para produtores.</p><span class="who__scale mono">rede de cooperados</span></li>
+      <li><svg aria-hidden="true"><use href="#i-chart"/></svg><h3>Gestores Agrícolas</h3><p>Tenha visão clara das operações e indicadores.</p><span class="who__scale mono">visão executiva</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ CASE ============ -->
+<section class="section case" data-nav="resultados" aria-labelledby="case-title">
+  <div class="case__grid">
+    <figure class="case__img" data-clip>
+      <picture>
+        <source media="(max-width: 760px)" srcset="assets/img/case-sunset-m.webp">
+        <img src="assets/img/case-sunset.webp" alt="Grande lavoura vista de drone ao pôr do sol, com serras ao fundo" width="1500" height="1500" loading="lazy" decoding="async" data-parallax>
+      </picture>
+      <figcaption class="case__coord mono" aria-hidden="true"><span>UNIDADE BOA ESPERANÇA · MT</span><span>13°58′S · 57°12′W</span></figcaption>
+    </figure>
+    <div class="case__body">
+      <div class="rail" data-reveal><span class="rail__l">Case de sucesso</span><span class="rail__m">projeto conceitual</span></div>
+      <p class="case__name" data-reveal>Grupo Santa Helena</p>
+      <dl class="case__spec mono" data-reveal>
+        <div><dt>Local</dt><dd>Mato Grosso — Brasil</dd></div>
+        <div><dt>Unidades</dt><dd>3 fazendas</dd></div>
+        <div><dt>Área</dt><dd>4.440 ha</dd></div>
+        <div><dt>Culturas</dt><dd>Soja + Milho</dd></div>
+      </dl>
+      <h2 id="case-title" class="h2" data-reveal>Mais visibilidade para decidir melhor.</h2>
+      <p class="case__txt" data-reveal>Com os dados das três fazendas centralizados na AGROVANT, a equipe passou a acompanhar indicadores operacionais e agronômicos de forma integrada.</p>
+      <dl class="case__res" data-reveal>
+        <div><dd><span class="pre">+</span><b data-count="21" data-format="int">21</b>%</dd><dt>produtividade desde 23/24</dt></div>
+        <div><dd><span class="pre">−</span><b data-count="9.8" data-format="dec1">9,8</b>%</dd><dt>custo por hectare</dt></div>
+        <div><dd><span class="pre">+</span><b data-count="18.4" data-format="dec1">18,4</b>%</dd><dt>eficiência operacional</dt></div>
+      </dl>
+      <figure class="case__quote" data-reveal>
+        <blockquote><p>“Antes, tínhamos informação em vários lugares. Hoje conseguimos enxergar a operação inteira em <em>poucos minutos.</em>”</p></blockquote>
+        <figcaption><span class="avatar">RA</span><span><b>Ricardo Almeida</b><span>Gestor Agrícola · Grupo Santa Helena</span></span><span class="mono quote__note">depoimento fictício</span></figcaption>
+      </figure>
+      <p class="disclaimer">Números e depoimento são fictícios, criados para apresentar o projeto conceitual.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COMO FUNCIONA ============ -->
+<section class="section how" data-nav="tecnologia" aria-labelledby="how-title">
+  <div class="wrap">
+    <div class="rail" data-reveal><span class="rail__l">Como funciona</span><span class="rail__m">implantação assistida</span></div>
+    <h2 id="how-title" class="h2 how__title" data-reveal>Da propriedade aos dados. Dos dados à decisão.</h2>
+    <ol class="steps" data-steps>
+      <li class="step"><span class="step__node"><i></i></span><span class="step__n mono">01</span><h3>Conectamos</h3><p>Integramos as informações da sua operação.</p></li>
+      <li class="step"><span class="step__node"><i></i></span><span class="step__n mono">02</span><h3>Organizamos</h3><p>Centralizamos dados de áreas, máquinas, clima e safras.</p></li>
+      <li class="step"><span class="step__node"><i></i></span><span class="step__n mono">03</span><h3>Analisamos</h3><p>Transformamos informações em indicadores relevantes.</p></li>
+      <li class="step"><span class="step__node"><i></i></span><span class="step__n mono">04</span><h3>Você decide</h3><p>Sua equipe trabalha com uma visão mais clara da operação.</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ TECNOLOGIA ============ -->
+<section class="section section--pair tech" id="tecnologia" data-nav="tecnologia" aria-labelledby="tech-title">
+  <div class="wrap">
+    <div class="rail" data-reveal><span class="rail__l">Infraestrutura</span><span class="rail__m">fazenda → cloud → plataforma</span></div>
+    <div class="tech__head">
+      <h2 id="tech-title" class="h2" data-reveal>Tecnologia invisível. Resultados visíveis.</h2>
+      <p class="tech__txt" data-reveal>Uma infraestrutura criada para transformar diferentes fontes de informação em uma experiência simples para quem trabalha no campo.</p>
+    </div>
+    <div class="pipe" data-pipe data-reveal>
+      <div class="pipe__stage">
+        <p class="pipe__l mono">Campo</p>
+        <ul>
+          <li><svg aria-hidden="true"><use href="#i-satellite"/></svg>Satélite</li>
+          <li><svg aria-hidden="true"><use href="#i-sensor"/></svg>Sensores</li>
+          <li><svg aria-hidden="true"><use href="#i-gps"/></svg>GPS</li>
+        </ul>
+      </div>
+      <div class="pipe__flow" aria-hidden="true"><i></i><i></i><i></i></div>
+      <div class="pipe__stage pipe__stage--core">
+        <p class="pipe__l mono">Cloud</p>
+        <ul>
+          <li><svg aria-hidden="true"><use href="#i-server"/></svg>Cloud</li>
+          <li><svg aria-hidden="true"><use href="#i-ml"/></svg>Machine Learning</li>
+        </ul>
+      </div>
+      <div class="pipe__flow" aria-hidden="true"><i></i><i></i><i></i></div>
+      <div class="pipe__stage">
+        <p class="pipe__l mono">Plataforma</p>
+        <ul>
+          <li><svg aria-hidden="true"><use href="#i-api"/></svg>APIs</li>
+          <li class="pipe__out"><svg aria-hidden="true"><use href="#i-grid"/></svg>Decisão no dashboard</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SEGURANÇA ============ -->
+<section class="section secure" data-nav="tecnologia" aria-labelledby="secure-title">
+  <div class="wrap secure__grid">
+    <div>
+      <div class="rail" data-reveal><span class="rail__l">Segurança dos dados</span><span class="rail__m">status · operacional</span></div>
+      <h2 id="secure-title" class="h2" data-reveal>Seus dados. Sua operação.</h2>
+    </div>
+    <ul class="secure__list" data-reveal>
+      <li><svg aria-hidden="true"><use href="#i-lock"/></svg><span>Criptografia</span><i class="ok-dot"></i></li>
+      <li><svg aria-hidden="true"><use href="#i-backup"/></svg><span>Backups automáticos</span><i class="ok-dot"></i></li>
+      <li><svg aria-hidden="true"><use href="#i-key"/></svg><span>Controle de acesso</span><i class="ok-dot"></i></li>
+      <li><svg aria-hidden="true"><use href="#i-server"/></svg><span>Infraestrutura em nuvem</span><i class="ok-dot"></i></li>
+      <li><svg aria-hidden="true"><use href="#i-pulse"/></svg><span>Monitoramento contínuo</span><i class="ok-dot"></i></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="cta" data-nav="contato" aria-labelledby="cta-title">
+  <picture class="cta__bg">
+    <source media="(max-width: 760px)" srcset="assets/img/cta-harvest-m.webp">
+    <img src="assets/img/cta-harvest.webp" alt="" width="1800" height="1015" loading="lazy" decoding="async" data-parallax>
+  </picture>
+  <div class="cta__shade"></div>
+  <div class="wrap cta__in">
+    <p class="mono cta__meta" data-reveal>COLHEITA · SAFRA 2026/27 · 18:04 BRT</p>
+    <h2 id="cta-title" class="display display--cta" data-reveal>Sua próxima safra começa nos dados.</h2>
+    <p class="cta__txt" data-reveal>Descubra como a AGROVANT pode transformar dados da sua operação em decisões mais inteligentes.</p>
+    <div class="cta-row" data-reveal>
+      <a class="btn btn--lime btn--lg" href="#contato">Solicitar demonstração</a>
+      <a class="btn btn--ghost btn--lg" href="#contato" data-channel="whatsapp">Falar com especialista <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FORM ============ -->
+<section class="section lead" id="contato" data-nav="contato" aria-labelledby="lead-title">
+  <div class="wrap lead__grid">
+    <div class="lead__copy">
+      <div class="rail" data-reveal><span class="rail__l">Demonstração</span><span class="rail__m">resposta em até 1 dia útil</span></div>
+      <h2 id="lead-title" class="h2" data-reveal>Conheça a AGROVANT.</h2>
+      <p class="lead__txt" data-reveal>Mostramos a plataforma com dados de uma operação parecida com a sua e ajudamos a planejar a implantação.</p>
+      <ul class="lead__points" data-reveal>
+        <li><svg aria-hidden="true"><use href="#i-check"/></svg>Demonstração guiada de 30 minutos</li>
+        <li><svg aria-hidden="true"><use href="#i-check"/></svg>Sem compromisso</li>
+        <li><svg aria-hidden="true"><use href="#i-check"/></svg>Atendimento por especialista em agro</li>
+      </ul>
+      <p class="lead__contact mono" data-reveal>contato@agrovant.com.br · 0800 000 0000</p>
+    </div>
+
+    <div class="form-shell" data-reveal>
+      <form class="form" data-form novalidate>
+        <div class="field">
+          <label for="f-nome">Nome</label>
+          <input id="f-nome" name="nome" type="text" autocomplete="name" required>
+          <p class="err" id="e-nome">Informe seu nome.</p>
+        </div>
+        <div class="field">
+          <label for="f-empresa">Empresa / Fazenda</label>
+          <input id="f-empresa" name="empresa" type="text" autocomplete="organization" required>
+          <p class="err" id="e-empresa">Informe a empresa ou fazenda.</p>
+        </div>
+        <fieldset class="field field--full">
+          <legend>Como prefere ser contatado?</legend>
+          <div class="radios radios--channel">
+            <label><input type="radio" name="canal" value="whatsapp" checked><span><svg aria-hidden="true"><use href="#i-chat"/></svg>WhatsApp</span></label>
+            <label><input type="radio" name="canal" value="email"><span><svg aria-hidden="true"><use href="#i-send"/></svg>E-mail</span></label>
+          </div>
+        </fieldset>
+        <div class="field">
+          <label for="f-whats">WhatsApp <span class="opt" data-opt="whatsapp" hidden>(opcional)</span></label>
+          <input id="f-whats" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="(00) 00000-0000" data-mask="phone">
+          <p class="err" id="e-whats">Informe um WhatsApp com DDD, como (65) 99999-0000.</p>
+        </div>
+        <div class="field">
+          <label for="f-email">E-mail <span class="opt" data-opt="email">(opcional)</span></label>
+          <input id="f-email" name="email" type="email" autocomplete="email" placeholder="voce@fazenda.com.br">
+          <p class="err" id="e-email">Informe um e-mail válido, como voce@fazenda.com.br.</p>
+        </div>
+        <div class="field field--full">
+          <label for="f-area">Área aproximada da propriedade</label>
+          <div class="select">
+            <select id="f-area" name="area" required>
+              <option value="" disabled selected>Selecione</option>
+              <option>Até 500 ha</option>
+              <option>500 a 2.000 ha</option>
+              <option>2.000 a 5.000 ha</option>
+              <option>Mais de 5.000 ha</option>
+            </select>
+          </div>
+          <p class="err" id="e-area">Selecione a área aproximada.</p>
+        </div>
+        <fieldset class="field field--full">
+          <legend>Principal interesse</legend>
+          <div class="radios">
+            <label><input type="radio" name="interesse" value="Monitoramento" required><span>Monitoramento</span></label>
+            <label><input type="radio" name="interesse" value="Gestão de safra"><span>Gestão de safra</span></label>
+            <label><input type="radio" name="interesse" value="Máquinas"><span>Máquinas</span></label>
+            <label><input type="radio" name="interesse" value="Clima"><span>Clima</span></label>
+            <label><input type="radio" name="interesse" value="Gestão completa"><span>Gestão completa</span></label>
+          </div>
+          <p class="err" id="e-interesse">Escolha o principal interesse.</p>
+        </fieldset>
+        <div class="form__foot field--full">
+          <button class="btn btn--lime btn--lg btn--block" type="submit"><span class="btn__label">Solicitar demonstração</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+          <p class="form__note">Formulário demonstrativo: nenhum dado é enviado ou armazenado.</p>
+        </div>
+      </form>
+      <div class="form-ok" data-form-ok hidden tabindex="-1">
+        <div class="rail"><span class="rail__l">Solicitação registrada</span><span class="rail__m" data-ok-id>AGV-0412</span></div>
+        <div class="form-ok__head">
+          <span class="form-ok__ico"><svg aria-hidden="true"><use href="#i-check"/></svg></span>
+          <p class="form-ok__h" data-ok-h>Pronto.</p>
+        </div>
+        <p class="form-ok__msg" data-ok-msg>Um especialista vai falar com você em até 1 dia útil.</p>
+        <ol class="form-ok__steps">
+          <li><span class="mono">Até 1 dia útil</span><p data-ok-s1>Chamamos você para agendar o melhor horário.</p></li>
+          <li><span class="mono">30 minutos</span><p>Demonstração guiada, sem compromisso.</p></li>
+          <li><span class="mono">Na tela</span><p data-ok-s3>A plataforma com dados de uma operação parecida com a sua.</p></li>
+        </ol>
+        <div class="form-ok__foot">
+          <button type="button" class="btn btn--ghost" data-form-reset>Enviar outra solicitação</button>
+          <p class="form__note">Formulário demonstrativo: nenhum dado foi enviado ou armazenado.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <a class="logo" href="#conteudo" aria-label="AGROVANT — voltar ao início"><svg class="logo__mark" aria-hidden="true"><use href="#logo-mark"/></svg><span class="logo__word">AGROVANT</span></a>
+        <p>Inteligência que nasce no campo.</p>
+      </div>
+      <nav class="footer__cols" aria-label="Rodapé">
+        <div><p class="footer__h mono">Plataforma</p><ul><li><a href="#plataforma">Visão Geral</a></li><li><a href="#mapa">Monitoramento</a></li><li><a href="#recursos" data-open-f="1">Clima</a></li><li><a href="#recursos" data-open-f="2">Máquinas</a></li><li><a href="#recursos" data-open-f="5">Relatórios</a></li></ul></div>
+        <div><p class="footer__h mono">Empresa</p><ul><li><a href="#sobre">Sobre</a></li><li><a href="#tecnologia">Tecnologia</a></li><li><a href="#resultados">Cases</a></li><li><a href="#contato">Contato</a></li></ul></div>
+        <div><p class="footer__h mono">Contato</p><ul><li><a href="mailto:contato@agrovant.com.br">contato@agrovant.com.br</a></li><li><a href="tel:08000000000">0800 000 0000</a></li></ul>
+          <ul class="social" aria-label="Redes sociais (projeto conceitual, sem perfis ativos)"><li><span><svg aria-hidden="true"><use href="#i-linkedin"/></svg>LinkedIn</span></li><li><span><svg aria-hidden="true"><use href="#i-instagram"/></svg>Instagram</span></li></ul>
+        </div>
+      </nav>
+    </div>
+    <div class="footer__word" aria-hidden="true">AGROVANT</div>
+    <div class="footer__bot">
+      <p>© 2026 AGROVANT Tecnologia Agrícola. Projeto conceitual.</p>
+      <p>Desenvolvido por <b>AJ Solutions Tech</b>.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+<script src="assets/js/farm.js" defer></script>
+<script src="assets/js/app.js" defer></script>
+</body>
+</html>

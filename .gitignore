@@ -1,0 +1,5 @@
+.vercel/
+.env*
+.claude/
+.impeccable/review/
+node_modules/

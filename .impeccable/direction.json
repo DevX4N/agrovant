@@ -1,0 +1,97 @@
+{
+  "title": "AGROVANT — mundo visual",
+  "question": "A rolagem atribuiu “Cena Orbital”. Manter, escolher uma alternativa ou rolar de novo. (A paleta escura + verde-lima do briefing vale para todas.)",
+  "options": [
+    {
+      "id": "assigned",
+      "label": "Cena Orbital",
+      "kicker": "THE ROLL",
+      "lineage": "Visualizadores de cena Sentinel-2 / Landsat: graticula, metadados de aquisição, composições de bandas",
+      "thesis": "O site inteiro é uma passagem de satélite sobre a Fazenda Santa Helena: cada seção é uma banda processada da mesma terra.",
+      "palette": ["#080B09", "#151B16", "#B6F23A", "#6F9C2C", "#C9B48A", "#F4F6F1"],
+      "materials": ["foto aérea real sob graticula lat/long", "faixas de metadados de cena (ACQ · S2B · NUVENS 3%)", "falsa-cor NDVI revelada por varredura", "placas de mapa empilhadas sem sombra"],
+      "viewport": "Foto aérea escura em sangria total com graticula e coordenadas nas bordas; headline grande à esquerda; à direita o dashboard flutuando sobre a mesma terra; uma varredura de satélite atravessa a foto convertendo RGB→NDVI; CTA lima no topo-esquerdo da dobra.",
+      "risk": "Se a graticula e os metadados virarem enfeite, cai no clichê ‘dark SaaS com neon’; precisam ser funcionais (bandas trocam de verdade).",
+      "raised": [
+        {"from": "Ikebana / ma", "raise": "Uma seção por vez respira: blocos de vazio ativo entre os trechos densos de dashboard, nada de parede contínua de cards."},
+        {"from": "Papel recortado Łowicz", "raise": "Profundidade só por sobreposição de placas planas — zero glow, zero sombra difusa colorida."},
+        {"from": "Painel de voo noturno", "raise": "Cada KPI ocupa posição fixa com numerais tabulares e tendência ao lado do valor; agulhas/gráficos amortecidos, nunca saltam."},
+        {"from": "Cracktro", "raise": "Hierarquia por brilho e espaçamento de letra, não por caixas — menos bordas, mais tipografia."}
+      ]
+    },
+    {
+      "id": "model-pick",
+      "label": "Mapa de Prescrição",
+      "kicker": "IMPECCABLE’S PICK",
+      "lineage": "Mapas de taxa variável e telas de monitor de cabine (agricultura de precisão)",
+      "thesis": "A página como mapa de prescrição: talhões, zonas de manejo e linhas de passada guiando a leitura.",
+      "palette": ["#080B09", "#101511", "#B6F23A", "#6F9C2C", "#F4F6F1"],
+      "materials": ["polígonos de talhão", "linhas de plantio paralelas (AB lines)", "legendas de zona de manejo"],
+      "viewport": "Mapa de talhões ocupando a dobra com linhas de passada; headline sobre a zona mais escura; dashboard ancorado à direita.",
+      "risk": "É onde quase todo site AgTech aterrissa — familiar e eficaz, porém menos memorável."
+    },
+    {
+      "id": "challenger-six-pack",
+      "label": "Painel de Instrumentos",
+      "verdict": "competitive",
+      "lineage": "Six-pack de voo noturno",
+      "thesis": "A operação como seis instrumentos que concordam entre si: confiança por checagem cruzada.",
+      "palette": ["#0A0C0B", "#F4F6F1", "#B6F23A", "#E0A23B"],
+      "materials": ["mostradores SVG", "agulhas com mola amortecida", "placas em caixa alta"],
+      "viewport": "Seis mostradores (área, produtividade, chuva, temperatura, umidade, máquinas) em duas fileiras sobre preto fosco.",
+      "case": "Funde bem com KPIs e reforça confiabilidade, mas o visitante não se identifica com cockpit; perde no ‘campo’.",
+      "risk": "Skeuomorfismo pode parecer gadget, não plataforma."
+    },
+    {
+      "id": "challenger-ikebana",
+      "label": "Ikebana / ma",
+      "verdict": "declined",
+      "lineage": "Arranjo em tokonoma",
+      "thesis": "Vazio ativo como protagonista.",
+      "palette": ["#E9E4DA", "#6B5E50", "#3D5A9E"],
+      "materials": ["reboco claro", "galho de pinho"],
+      "viewport": "Um elemento assimétrico em muito espaço vazio.",
+      "case": "Funde mal: produtor e gestor não se reconhecem; contraria o dark pinado.",
+      "risk": "Lê como estúdio de arte.",
+      "kept": "Vazio ativo entre trechos densos."
+    },
+    {
+      "id": "challenger-papercut",
+      "label": "Papel recortado Łowicz",
+      "verdict": "declined",
+      "lineage": "Recorte folclórico polonês em camadas",
+      "thesis": "Profundidade sem sombreamento.",
+      "palette": ["#D7263D", "#F4D35E", "#1B998B"],
+      "materials": ["papéis coloridos colados"],
+      "viewport": "Roseta simétrica em camadas.",
+      "case": "Funde mal: folclórico, infantil para o briefing.",
+      "risk": "Visual infantil — vetado no briefing.",
+      "kept": "Profundidade só por sobreposição de placas planas."
+    },
+    {
+      "id": "challenger-cracktro",
+      "label": "Cracktro",
+      "verdict": "declined",
+      "lineage": "Telas de título da demoscene",
+      "thesis": "Hierarquia por profundidade, sem caixas.",
+      "palette": ["#000000", "#EDE6D6", "#F2A900"],
+      "materials": ["fonte bitmap", "poeira em paralaxe"],
+      "viewport": "Uma linha de texto parada sobre o vazio.",
+      "case": "Funde mal: nostalgia gamer, sem relação com o agro.",
+      "risk": "Retrô-novidade.",
+      "kept": "Hierarquia por brilho/tracking em vez de bordas."
+    }
+  ],
+  "reroll": {"registers": ["safer", "bolder"]},
+  "buildPath": {"value": "code", "toggle": false},
+  "canon": true,
+  "canonCard": {
+    "label": "Padrão da categoria",
+    "thesis": "Landing SaaS AgTech clássica: hero com dashboard, faixas de features, depoimentos.",
+    "palette": ["#080B09", "#151B16", "#B6F23A", "#F4F6F1"],
+    "materials": ["grid limpo", "screenshots de produto"],
+    "viewport": "Headline à esquerda, mockup de dashboard à direita, logos abaixo.",
+    "risk": "Indistinguível da concorrência por definição."
+  },
+  "steer": true
+}
