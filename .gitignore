@@ -3,3 +3,5 @@
 .claude/
 .impeccable/review/
 node_modules/
+
+.vercel
